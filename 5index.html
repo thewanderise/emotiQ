@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>emotiQ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Body and Font Styles */
+        body {
+            background-color: #F0C419;
+            color: black;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        /* Container for all content */
+        .container {
+            width: 100%;
+            max-width: 600px;
+            padding: 40px 20px;
+            box-sizing: border-box;
+            text-align: left;
+        }
+
+        /* Styling for the logo and heading */
+        .logo {
+            font-family: 'Inter', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            text-align: center;
+            text-transform: lowercase;
+        }
+
+        .logo-q {
+            text-transform: uppercase;
+        }
+
+        .tagline {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.5rem;
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        
+        .sub-tagline {
+            font-size: 1rem;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        /* Form and input styling */
+        .form-section {
+            background-color: transparent;
+            border-radius: 10px;
+            padding: 20px 0;
+            margin-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .form-section p {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #333;
+        }
+
+        .form-section label {
+            font-size: 0.9rem;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .form-section input[type="email"],
+        .form-section input[type="text"],
+        .form-section textarea,
+        .form-section select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #333;
+            background-color: transparent;
+            color: black;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .form-section input::placeholder,
+        .form-section textarea::placeholder {
+            color: rgba(0, 0, 0, 0.4);
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* Button styles */
+        .button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: black;
+            color: #F0C419;
+            text-align: center;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #333;
+        }
+
+        /* Hide all sections initially, show welcome page by default */
+        .page-section {
+            display: none;
+        }
+        
+        #welcome-page {
+            display: block;
+        }
+
+        /* Styles for the loading screen and strategy display */
+        .loading {
+            text-align: center;
+            font-size: 1rem;
+            margin-top: 50px;
+            display: none;
+        }
+
+        #strategy-output {
+            display: none;
+            padding: 20px;
+            border: 1px solid #333;
+            background-color: #fff;
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+        #strategy-output h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <section id="welcome-page" class="page-section">
+            <h1 class="logo">emoti<span class="logo-q">Q</span></h1>
+            <p class="tagline">Sell the Feeling</p>
+            <p class="sub-tagline">Your first step to a brilliant marketing strategy.</p>
+            <button class="button" onclick="showSection('login-signup-page')">Get Started</button>
+        </section>
+
+        <section id="login-signup-page" class="page-section">
+            <h1 class="logo">Login / Signup</h1>
+            <form class="form-section">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                <label for="verification-code">Verification Code</label>
+                <input type="text" id="verification-code" name="verification-code" placeholder="Enter your code" required>
+                <button type="submit" class="button" onclick="showSection('questionnaire-page')">Login / Verify</button>
+            </form>
+        </section>
+
+        <section id="questionnaire-page" class="page-section">
+            <h1 class="logo">The Questionnaire</h1>
+            <p>Answer these questions in as much detail as possible to get the best results.</p>
+            <form id="questionnaire-form" class="form-section">
+                <label for="business-type">1. What type of business do you own?</label>
+                <textarea id="business-type" name="business_type" rows="3" placeholder="Example: A travel-themed board game café with travel photography exhibits." required></textarea>
+
+                <label for="target-customers">2. Who are your target customers?</label>
+                <textarea id="target-customers" name="target_customers" rows="3" placeholder="Example: Young professionals, tourists, and families who enjoy unique cultural experiences." required></textarea>
+
+                <label for="problem-desire">3. What problem does your product solve?</label>
+                <textarea id="problem-desire" name="problem_desire" rows="3" placeholder="Example: It provides a unique, relaxing escape from the mundane and a fun way to connect with others." required></textarea>
+
+                <label for="usp">4. What makes you stand out?</label>
+                <textarea id="usp" name="usp" rows="3" placeholder="Example: Our unique multi-sensory experience combines nostalgic travel photography with a curated board game collection, unlike any other café." required></textarea>
+
+                <label for="marketing-goals">5. What are your marketing goals?</label>
+                <textarea id="marketing-goals" name="marketing_goals" rows="3" placeholder="Example: To build brand awareness, create a loyal community, and drive foot traffic to our physical location." required></textarea>
+
+                <label for="marketing-focus">6. Where will you focus your marketing?</label>
+                <textarea id="marketing-focus" name="marketing_focus" rows="3" placeholder="Example: Social media (Instagram, TikTok), local partnerships with travel bloggers, and community events." required></textarea>
+
+                <label for="admired-brands">7. Are there any brands you admire?</label>
+                <textarea id="admired-brands" name="admired_brands" rows="3" placeholder="Example: Starbucks (for their branded in-store experience) and Airbnb (for their focus on community and unique experiences)." required></textarea>
+                
+                <label for="industry-name">Select the industry your business operates in</label>
+                <select id="industry-name" name="industry_name" required>
+                    <option value="">Select an industry...</option>
+                    <option value="Arts, Crafts and Stationery">Arts, Crafts and Stationery</option>
+                    <option value="Automotive">Automotive</option>
+                    <option value="Baby & Kids Products">Baby & Kids Products</option>
+                    <option value="Beauty & Personal Care">Beauty & Personal Care</option>
+                    <option value="Business & Professional Services">Business & Professional Services</option>
+                    <option value="Digital Products and Software as a Service">Digital Products and Software as a Service</option>
+                    <option value="Education & E-Learning">Education & E-Learning</option>
+                    <option value="Electronics & Technology">Electronics & Technology</option>
+                    <option value="Events & Entertainment">Events & Entertainment</option>
+                    <option value="Fashion & Apparel">Fashion & Apparel</option>
+                    <option value="Financial & Insurance Services">Financial & Insurance Services</option>
+                    <option value="Food & Beverages">Food & Beverages</option>
+                    <option value="Hardware & Construction">Hardware & Construction</option>
+                    <option value="Health, Wellness & Supplements">Health, Wellness & Supplements</option>
+                    <option value="Healthcare Services">Healthcare Services</option>
+                    <option value="Home & Garden">Home & Garden</option>
+                    <option value="Jewelry & Accessories">Jewelry & Accessories</option>
+                    <option value="Legal Services">Legal Services</option>
+                    <option value="Media & Publishing">Media & Publishing</option>
+                    <option value="Pet Care & Products">Pet Care & Products</option>
+                    <option value="Real Estate">Real Estate</option>
+                    <option value="Sports & Recreation">Sports & Recreation</option>
+                    <option value="Travel & Hospitality">Travel & Hospitality</option>
+                </select>
+
+                <label for="emotion-name">Select the emotion which resonates with your brand for marketing</label>
+                <select id="emotion-name" name="emotion_name" required>
+                    <option value="">Select an emotion...</option>
+                    <option value="Fear/Security">Fear/Security</option>
+                    <option value="Trust/Reliability">Trust/Reliability</option>
+                    <option value="Desire/Aspiration">Desire/Aspiration</option>
+                    <option value="Belonging/Community">Belonging/Community</option>
+                    <option value="Nostalgia">Nostalgia</option>
+                    <option value="Hope/Inspiration">Hope/Inspiration</option>
+                    <option value="Humor">Humor</option>
+                </select>
+
+                <button type="submit" class="button">Generate My Strategy</button>
+            </form>
+        </section>
+
+        <section id="loading-page" class="page-section loading">
+            <p>Generating your strategy...</p>
+        </section>
+
+        <section id="strategy-page" class="page-section">
+            <h1 class="logo">Your Marketing Strategy</h1>
+            <div id="strategy-output">
+                </div>
+            <button class="button" onclick="showSection('questionnaire-page')">Change Emotion/Industry</button>
+        </section>
+    </div>
+
+    <script>
+        // Placeholder JavaScript for a single-page application feel
+        function showSection(id) {
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            document.getElementById(id).style.display = 'block';
+        }
+
+        document.getElementById('questionnaire-form').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            showSection('loading-page');
+
+            const form = event.target;
+            const userFormData = {};
+            new FormData(form).forEach((value, key) => {
+                userFormData[key] = value;
+            });
+
+            // Simulate the API call to FlowiseAI
+            try {
+                const response = await fetch("https://cloud.flowiseai.com/api/v1/prediction/636a6464-9763-4c80-97a0-fd9fb8358ac7", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        "question": "Generate a marketing strategy",
+                        "overrideConfig": {
+                            "vars": userFormData
+                        }
+                    })
+                });
+
+                const data = await response.json();
+                const strategyContent = data.text || "No strategy generated. Please try again.";
+
+                // Display the strategy on the page
+                document.getElementById('strategy-output').innerHTML = `
+                    <h3>Category: ${userFormData.industry_name}</h3>
+                    <h3>Emotion: ${userFormData.emotion_name}</h3>
+                    <p>${strategyContent.replace(/\n/g, '<br>')}</p>
+                `;
+                document.getElementById('strategy-output').style.display = 'block';
+                showSection('strategy-page');
+
+            } catch (error) {
+                console.error("Error fetching strategy:", error);
+                document.getElementById('strategy-output').innerHTML = "An error occurred. Please try again.";
+                document.getElementById('strategy-output').style.display = 'block';
+                showSection('strategy-page');
+            }
+        });
+    </script>
+</body>
+</html>
